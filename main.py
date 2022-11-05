@@ -4,41 +4,49 @@ import face_recognition
 import os
 from datetime import datetime as dt
 from deepface import DeepFace
-#faceCascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-face_cascade=cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
-path = './ImagesDB'
+
+face_cascade=cv2.CascadeClassifier('haarcascade_frontalface_default.xml')  #This 'XML' file contains a pre-trained model that was created through extensive training and uploaded 
+#by Rainer Lienhart on behalf of Intel in 2000. 
+#Rainer's model makes use of the Adaptive Boosting Algorithm (AdaBoost) in order to yield better results and accuracy. 
+
+path = './ImagesDB' # path for sample images
 imageList = []
 classNames = []
-myList = os.listdir(path)
+myList = os.listdir(path)   # extracting the list of images for once from the path
 
-date= dt.today()
-date_str= date.strftime("%d %b, %Y")
+date= dt.today()    # date module function
+date_str= date.strftime("%d %b, %Y")    # typecasting dateTime type to string format
 
 for cl in myList:
-    curframe = cv2.imread(f'{path}/{cl}')
+    curframe = cv2.imread(f'{path}/{cl}')   # This library function is from open cv module , where it reads the pixels of all the images from mylist
     imageList.append(curframe)
     classNames.append(os.path.splitext(cl)[0])
 
-def findEncodings(images):
+def findEncodings(images):  # returning the encoded values of the list of images by using face_recognition module
     encodeList = []
     for frame in images:
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         encode = face_recognition.face_encodings(frame)[0]
         encodeList.append(encode)
-    return encodeList
+    return encodeList   # returning the list of arrays of final encoded values of the images
     
-encodeListKnown = findEncodings(imageList)
+encodeListKnown = findEncodings(imageList)  
 print(len(encodeListKnown))
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(0)   # an opencv module that opens the webcam that captures an array of incoming frames 
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, 500)
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 500)
 cap.set(cv2.CAP_PROP_FPS, 60)
 # print(cap.get(cv2.CAP_PROP_FPS))
 # print(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-while True:
+
+while True: # event loop
  success, frame = cap.read()
- result = DeepFace.analyze(frame, actions=['emotion'], enforce_detection=False)
+ result = DeepFace.analyze(frame, actions=['emotion'], enforce_detection=False) # DeepFace.analyze uses the haarcascade_frontalface_default.xml file to map the current face pixels with its predefined values
+ '''Haar cascade is an algorithm that can detect objects in images, irrespective of their scale in image and location. 
+ This algorithm is not so complex and can run in real-time. We can train a haar-cascade detector to detect various 
+ objects like cars, bikes, buildings, fruits, etc. '''
+ 
  gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
  faces = face_cascade.detectMultiScale(gray, 1.1, 4)
 
@@ -63,7 +71,7 @@ while True:
    name = classNames[matchIndex].upper()
    y1, x2, y2, x1 = faceLoc
    y1, x2, y2, x1 = y1 * 4, x2 * 4, y2 * 4, x1 * 4
-   cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0),2)
+   cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0),2)  # graphics that outline the part of face 
    cv2.rectangle(frame, (x1, y2 - 35), (x2+50, y2), (0, 255, 0),cv2.FILLED)
    cv2.putText(frame, name, (x1 + 5, y2 - 6),cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2)
    cv2.rectangle(frame, (x1 -30, y2), (x2 + len(date_str) + 40, y2+40), (255, 0, 0),cv2.FILLED)
@@ -71,5 +79,5 @@ while True:
 
  cv2.imshow('Webcam', frame)
  key = cv2.waitKey(1)
- if key == ord('e'):
+ if key == ord('e'):    # Press 'e' to escape the window
   break
