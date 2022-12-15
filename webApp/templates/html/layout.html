@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sentiment Analysis</title>
+    <link rel="stylesheet" href="../../static/css/style.css">
+    <script defer type="application/javascript" src="../../static/js/action.js"></script>
+</head>
+<body>
+
+    <header>
+        <div id="head1">
+            <img src="../../static/image/brainware.jpg" alt="Brainware logo">
+            <div class="clg-name">Brainware University, Barasat </div>
+        </div>
+        <div id="head2">
+            <h1>Project Evaluation</h1>
+            <h1>Sentimental Analysis GN-12</h1>
+            <h2>Subject Code- PROJ-CS782 (PROJECT-1)</h2>
+        </div>
+        <div id="head3">
+            <h2>Sem-7</h2>
+            <h2>Batch-2019-23</h2>
+        </div>
+    </header>
+    
+    <nav>
+        <div class="nav-btn"><a href="/webApp">Home</a></div>
+        <div class="nav-btn dropdown"><a href="">Group</a>
+            <div class="dropbox">
+                <div class="portfolio">
+                    <img src="../../static/image/soudeep.jpeg" alt="Soudeep">
+                    <div>Soudeep Dutta</div>
+                    <div>B.Tech(CSE), 4th year</div>
+                </div>
+                <div class="portfolio">
+                    <img src="../../static/image/Aish.jpg" alt="Aishwarya">
+                    <div>Aishwarya Roy</div>
+                    <div>B.Tech(CSE), 4th year</div>
+                </div>
+                <div class="portfolio">
+                    <img src="../../static/image/souparna.jpeg" alt="Souparna">
+                    <div>Souparna Biswas</div>
+                    <div>B.Tech(CSE), 4th year</div>
+                </div>
+                <div class="portfolio">
+                    <img src="../../static/image/shubhodeep.jpeg" alt="Shubhodeep">
+                    <div>Shubhodeep Neogi</div>
+                    <div>B.Tech(CSE), 4th year</div>
+                </div>
+                <div class="portfolio">
+                    <img src="../../static/image/ritesh.jpeg" alt="Instructor">
+                    <div>Dr. Ritesh Prasad</div>
+                    <div>(Our Instructor)</div>
+                    <div>Dept. of Computer Science & Engg.</div>
+                </div>
+            </div>
+        </div>
+        <div class="nav-btn"><a href="ppt/">Presentation</a></div>
+        <div class="nav-btn"><a href="D:\college\4th year sem-7\sentimental analysis\webApp\static\documents\Project_Report.pdf" download>Download DOC</a></div>
+        {% if got_result %}
+        <div class="nav-btn"><a href="/sentiment_result.csv" download>Download CSV</a></div>
+        {% endif %}
+    </nav>
+
+    {% if run_test_btn %}
+    <div class="action-btn" id="run-test">
+        <a href="run_test/">Run Test</a>
+    </div>
+    {% endif %}
+
+    {% if ppt %}
+    <iframe id="ppt-frame" src="https://docs.google.com/presentation/d/e/2PACX-1vQiuC0HrXcUAFOfCeZ7fSASVJNVkkotkHHPFKPMAV-FH7eEox5HBRDbThwGZLnuwg/embed?start=false&loop=false&delayms=3000" frameborder="0" width="1280" height="749" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+    {% endif %}
+
+    {% if got_result %}
+    <div id="result" class="scrollbar">
+        <table>
+            <tr>
+                {% for face in emotions %}
+                <th>{{ face }}</th>
+                {% endfor %}
+            </tr>
+
+            {% for row in table %}
+            <tr>
+                <td>{{ row.emotion.angry }}</td>
+                <td>{{ row.emotion.disgust }}</td>
+                <td>{{ row.emotion.fear }}</td>
+                <td>{{ row.emotion.happy }}</td>
+                <td>{{ row.emotion.sad }}</td>
+                <td>{{ row.emotion.surprise }}</td>
+                <td>{{ row.emotion.neutral }}</td>
+                <td>{{ row.dominant_emotion }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <div id="chart">
+            {% if chart %}
+            <img src="data:image/png;base64, {{ chart|safe }}" alt="chart" >
+            {% endif %}
+        </div>
+    </div>
+
+
+    {% endif %}
+
+</body>
+</html>
