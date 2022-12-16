@@ -1,0 +1,89 @@
+{% extends "layout.html" %}
+
+{% block title %}
+<title>Sentiment Analysis</title>
+{% endblock title %}
+
+{% block staticFiles %}
+<link rel="stylesheet" href="../../static/css/style.css">
+<script defer type="application/javascript" src="../../static/js/action.js"></script>
+{% endblock staticFiles %}
+
+
+{% block header %}
+<header>
+    <div id="head1">
+        <img src="../../static/image/brainware.jpg" alt="Brainware logo">
+        <div class="clg-name">Brainware University, Barasat </div>
+    </div>
+    <div id="head2">
+        <h1>Project Evaluation Simulator</h1>
+        <h1>Sentimental Analysis GN-12</h1>
+        <h2>Subject Code- PROJ-CS782 (PROJECT-1)</h2>
+    </div>
+    <div id="head3">
+        <h2>Sem-7</h2>
+        <h2>Batch-2019-23</h2>
+    </div>
+</header>
+{% endblock header %}
+
+{% block navigation %}
+<nav>
+    <ul class="navbar">
+        <li class="nav-btn"><a href="#">Home</a></li>
+        <li class="nav-btn dropdown"><a href="#">Group</a>
+            <ul class="dropbox">
+                <li>
+                   <div class="portfolio">
+                    <img src="../../static/image/soudeep.jpg" alt="Soudeep">
+                    <h2>Soudeep Dutta</h2>
+                    <h3>B.Tech(CSE), 4th year</h3>
+                   </div> 
+                </li>
+                <li>
+                   <div class="portfolio">
+                    <img src="../../static/image/Aish.jpg" alt="Aishwarya">
+                    <h2>Aishwarya Roy</h2>
+                    <h3>B.Tech(CSE), 4th year</h3>
+                   </div> 
+                </li>
+                <li>
+                   <div class="portfolio">
+                    <img src="../../static/image/souparna.jpeg" alt="Souparna">
+                    <h2>Souparna Biswas</h2>
+                    <h3>B.Tech(CSE), 4th year</h3>
+                   </div> 
+                </li>
+                <li>
+                   <div class="portfolio">
+                    <img src="../../static/image/shubhodeep.jpeg" alt="Shubhodeep">
+                    <h2>Shubhodeep Neogi</h2>
+                    <h3>B.Tech(CSE), 4th year</h3>
+                   </div> 
+                </li>
+                
+            </ul>
+        </li>
+        <li class="nav-btn"><a href="ppt.html">Presentation</a></li>
+        <li class="nav-btn dropdown"><a href="../../../Projectface.pdf" download>Download DOC</a></li>
+    </ul>
+</nav>
+{% endblock navigation %}
+
+{% block camera %}
+<div class="action-btn">
+    <a href="run_test/">Run Test</a>
+</div>
+{% endblock camera %}
+
+{% block result %}
+<div class="action-btn">
+    <a href="result/">View Result</a>
+</div>
+{% endblock result %}
+
+{% block ppt %}
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vRxIcvpanBdjHNtyYdUORbNc-Bb7HZQ0Pq3FdsHQNW0BL2OjMj6gx3FdRiRaTuEaw/embed?start=false&loop=false&delayms=3000" 
+frameborder="0" width="1280" height="749" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+{% endblock ppt %}
